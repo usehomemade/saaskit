@@ -1,0 +1,33 @@
+{
+  "$schema": "https://homemade.dev/schemas/latest/config.json",
+  "setup": [
+    "bash -o pipefail -c 'curl -fsSL https://deno.land/install.sh | DENO_INSTALL=/usr/local sh -s -- v2.5.6 --no-modify-path'"
+  ],
+  "warmup": [
+    "deno cache --node-modules-dir=auto main.ts dev.ts https://deno.land/x/fresh@1.7.3/plugins/tailwind/compiler.ts"
+  ],
+  "install": [
+    "deno cache --node-modules-dir=auto main.ts dev.ts https://deno.land/x/fresh@1.7.3/plugins/tailwind/compiler.ts"
+  ],
+  "services": {
+    "web": {
+      "cmd": "exec deno run --node-modules-dir=auto -A --watch=static/,routes/ --env dev.ts",
+      "port": 8000,
+      "url": true,
+      "healthcheck": {
+        "path": "/"
+      },
+      "displayName": "SaaSKit"
+    }
+  },
+  "env_schema": [
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "STRIPE_PREMIUM_PLAN_PRICE_ID",
+    "GA4_MEASUREMENT_ID",
+    "DENO_KV_PATH",
+    "DENO_DEPLOYMENT_ID"
+  ]
+}
