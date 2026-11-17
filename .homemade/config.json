@@ -1,0 +1,31 @@
+{
+  "$schema": "https://homemade.dev/schemas/latest/config.json",
+  "setup": [],
+  "warmup": [
+    "mise exec deno@2.2.12 -- deno cache main.ts dev.ts tasks/*.ts"
+  ],
+  "install": [
+    "mise exec deno@2.2.12 -- deno cache main.ts dev.ts tasks/*.ts"
+  ],
+  "services": {
+    "web": {
+      "cmd": "exec mise exec deno@2.2.12 -- deno task start",
+      "port": 8000,
+      "url": true,
+      "healthcheck": {
+        "path": "/"
+      },
+      "displayName": "SaaSKit"
+    }
+  },
+  "env_schema": [
+    "DENO_KV_PATH",
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "STRIPE_PREMIUM_PLAN_PRICE_ID",
+    "GA4_MEASUREMENT_ID",
+    "DENO_DEPLOYMENT_ID"
+  ]
+}
