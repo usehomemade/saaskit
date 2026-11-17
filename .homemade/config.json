@@ -1,17 +1,15 @@
 {
   "$schema": "https://homemade.dev/schemas/latest/config.json",
-  "setup": [
-    "mise install deno@2.2.12 && install -m 755 \"$(mise where deno@2.2.12)/bin/deno\" /usr/local/bin/deno"
-  ],
+  "setup": [],
   "warmup": [
-    "deno cache main.ts dev.ts tasks/*.ts"
+    "mise exec deno@2.2.12 -- deno cache main.ts dev.ts tasks/*.ts"
   ],
   "install": [
-    "deno cache main.ts dev.ts tasks/*.ts"
+    "mise exec deno@2.2.12 -- deno cache main.ts dev.ts tasks/*.ts"
   ],
   "services": {
     "web": {
-      "cmd": "exec deno task start",
+      "cmd": "exec mise exec deno@2.2.12 -- deno task start",
       "port": 8000,
       "url": true,
       "healthcheck": {
